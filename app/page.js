@@ -7,7 +7,9 @@ function LandingPage() {
     <div>
 
       <div className="flex flex-row h-1/5 py-1 justify-center md:justify-end bg-zinc-900 text-amber-200">
-        <button className="hover:text-zinc-100">Iniciar sesión</button>
+        <Link href="/sign-in">
+          <button className="hover:text-zinc-100">Iniciar sesión</button>
+        </Link>
         <h1 className="px-1">|</h1>
         <button className="pr-5 hover:text-zinc-100">Registrarse</button>
       </div>
@@ -18,11 +20,11 @@ function LandingPage() {
       </div>
       <div className="flex justify-center  text-lg mx-auto bg-zinc-950 text-amber-200" >
         <div className="flex justify-between md:w-1/3 lg:w-1/5 py-1">
-          <Link href="/men_jewerly">
+          <Link href="/men-jewerly">
             <button className="px-5 hover:text-zinc-100">Hombre</button>
           </Link>
           
-          <Link href="/women_jewerly">
+          <Link href="/women-jewerly">
           <button className="px-5 hover:text-zinc-100">Mujer</button>
           </Link>
 
