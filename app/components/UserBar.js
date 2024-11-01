@@ -27,8 +27,12 @@ export default function UserBar(){
       
       <div>
         {logedIn &&(!path.startsWith(`/${userName}`)) && (
-        <div className="flex flex-row h-1/5 py-1 justify-center md:justify-end bg-zinc-900 text-amber-200">
-          <Link href={`/${userName}/userpage`}>
+
+        <div className="flex flex-row h-1/5 py-1 items-center justify-center md:justify-end bg-zinc-900 text-amber-200">
+          <div className="flex items-center justify-center w-3 h-3 rounded-full bg-amber-200">
+          </div>
+
+            <Link href={`/${userName}/userpage`}>
             <button className="hover:text-zinc-100 px-2">{userName}</button>
           </Link>
         </div>

@@ -7,12 +7,18 @@ import { useState } from "react";
 function LandingPage() {
 
 
-  const [menuValue,setMenuValue] = useState(0);
+  const [menuValue,setMenuValue] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
 
   function showMenu(){
 
       return(
+      <div 
+        className={`absolute w-screen z-20 transition-all duration-700 transform ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-10"
+        }`}
+      >
         <div className="flex justify-start bg-zinc-950 text-amber-200 px-3" >
 
           <div className="grid grid-cols-1 gap-5 py-1 pr-2">
@@ -41,25 +47,28 @@ function LandingPage() {
               </Link>
             </div>
     
+          </div>
         </div>
       </div>
     );
   }
 
-  const handleClick = (menuValue) =>{
-    if(menuValue){
-      setMenuValue(0);
-    }else{
-      setMenuValue(1);
-    }
-
+ const handleClick = () => {
+  if (menuValue) {
+    setIsVisible(false);
+    setTimeout(() => setMenuValue(false), 700); // Espera la duración de la animación antes de ocultar el menú
+  } else {
+    setMenuValue(true);
+    setTimeout(() => setIsVisible(true), 50); // Da un pequeño retraso para activar la animación
   }
+};
+
 
 
 
 
   return(
-    <div>
+    <div className="relative">
 
       <div className="flex flex-row bg-zinc-900 text-amber-200 h-1/6" >
         <Image className="mx-auto my-auto pt-5 " src="/altagracia.png" alt="altagracialogo" width={500} height={104} />
@@ -74,7 +83,7 @@ function LandingPage() {
       </div>
       
       <div>
-        {menuValue === 1 && showMenu()}
+        {menuValue && showMenu()}
       </div>
 
       <div className="hidden md:flex justify-center bg-zinc-950 text-amber-200" >
