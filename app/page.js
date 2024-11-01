@@ -6,10 +6,12 @@ import { useState } from "react";
 
 function LandingPage() {
 
+
   const [menuValue,setMenuValue] = useState(0);
 
 
   function showMenu(){
+
       return(
         <div className="flex justify-start bg-zinc-950 text-amber-200 px-3" >
 
@@ -58,18 +60,6 @@ function LandingPage() {
 
   return(
     <div>
-
-      <div className="flex flex-row h-1/5 py-1 justify-center md:justify-end bg-zinc-900 text-amber-200">
-        <Link href="/user/sign-in">
-          <button className="hover:text-zinc-100">Iniciar sesión</button>
-        </Link>
-        <h1 className="px-1">|</h1>
-
-        <Link href="/user/sign-up">
-          <button className="pr-5 hover:text-zinc-100">Registrarse</button>
-        </Link>
-
-      </div>
 
       <div className="flex flex-row bg-zinc-900 text-amber-200 h-1/6" >
         <Image className="mx-auto my-auto pt-5 " src="/altagracia.png" alt="altagracialogo" width={500} height={104} />
