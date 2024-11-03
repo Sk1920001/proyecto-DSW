@@ -1,8 +1,9 @@
 import { fetchProducts } from "../../../lib/db";
 import Image from "next/image";
 
+
 export default async function Page() {
-  const products = await fetchProducts({category : "Acero inoxidable"}); //the input is an object
+  const products = await fetchProducts({category : 'Acero inoxidable'}); //the input is an object
   return(
 
     <div className="mx-auto">

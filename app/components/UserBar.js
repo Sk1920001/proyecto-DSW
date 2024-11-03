@@ -3,15 +3,14 @@ import { useAppContext } from "../index";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-
 export default function UserBar(){
   const path = usePathname();
-  const {userName,logedIn}= useAppContext();
+  const {userName}= useAppContext();
   return(
     <div>
 
       <div>
-        {!logedIn &&( 
+        {(userName === "") && ( 
         <div className="flex flex-row h-1/5 py-1 justify-center md:justify-end bg-zinc-900 text-amber-200">
           <Link href="/login/sign-in">
             <button className="hover:text-zinc-100">Iniciar sesión</button>
@@ -26,7 +25,7 @@ export default function UserBar(){
       </div>
       
       <div>
-        {logedIn &&(!path.startsWith(`/${userName}`)) && (
+        {(userName !== "") && (!path.startsWith(`/${userName}`)) && (
 
         <div className="flex flex-row h-1/5 py-1 items-center justify-center md:justify-end bg-zinc-900 text-amber-200">
           <div className="flex items-center justify-center w-3 h-3 rounded-full bg-amber-200">

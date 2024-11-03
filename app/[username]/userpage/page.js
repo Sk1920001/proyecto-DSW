@@ -5,8 +5,6 @@ import { useAppContext } from "../../index";
 export default function userPage({params}) {
 
   const {userName,isAdmin} = useAppContext();
-  console.log(params.username);
-  console.log(userName);
 
   if (userName !== params.username){
     return(

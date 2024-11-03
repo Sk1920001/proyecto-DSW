@@ -33,7 +33,7 @@ export default function page() {
 
         const result = await response.data;
         console.log('Usuario registrado exitosamente:', result);
-        router.push("/user/sign-in");
+        router.push("/login/sign-in");
     } catch (error) {
         console.error('Error al registrar el usuario:', error);
     }
@@ -107,7 +107,7 @@ export default function page() {
 
         <p className="mt-10 text-center text-sm text-gray-500">
           ¿Ya tiene cuenta?  
-          <Link href="/user/sign-in" className="font-semibold leading-6 text-zinc-900 hover:text-amber-500 pl-1">Haga click aquí</Link>
+          <Link href="/login/sign-in" className="font-semibold leading-6 text-zinc-900 hover:text-amber-500 pl-1">Haga click aquí</Link>
         </p>
       </div>
   );

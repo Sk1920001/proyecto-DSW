@@ -10,8 +10,36 @@ function page() {
   
   const[email,setEmail] = useState("");
   const[password,setPassword] = useState("");
-  const {isAdmin,setIsAdmin,userName,setUserName,logedIn,setLogedIn,userEmail,setUserEmail} = useAppContext();
+  const {isAdmin,setIsAdmin,userName,setUserName,userEmail,setUserEmail} = useAppContext();
   const router = useRouter();
+
+  const setLocalStorageUserName = value =>{
+    try{
+      setUserName(value);
+      localStorage.setItem("user",value);
+    }catch(error){
+      console.error(error);
+    }
+  }
+
+  const setLocalStorageEmail = value =>{
+    try{
+      setUserEmail(value);
+      localStorage.setItem("email",value);
+    }catch(error){
+      console.error(error);
+    }
+  }
+
+  const setLocalStorageAdmin= value =>{
+    try{
+      setIsAdmin(value);
+      localStorage.setItem("admin",value);
+    }catch(error){
+      console.error(error);
+    }
+  }
+  
   
   const handelSubmit = async(envent) =>{
     event.preventDefault();
@@ -27,10 +55,9 @@ function page() {
 
 
       const userData = await response.data;
-      setIsAdmin(userData.admin);
-      setUserName(userData.user);
-      setLogedIn(true);
-      setUserEmail(userData.email);
+      setLocalStorageAdmin(userData.admin);
+      setLocalStorageUserName(userData.user);
+      setLocalStorageEmail(userData.email);
       router.push("/");
 
 
@@ -93,7 +120,7 @@ function page() {
 
         <p className="mt-10 text-center text-sm text-gray-500">
           ¿No tiene cuenta?  
-          <Link href="/user/sign-up" className="font-semibold leading-6 text-zinc-900 hover:text-amber-500 pl-1">Haga click aquí crearla</Link>
+          <Link href="/login/sign-up" className="font-semibold leading-6 text-zinc-900 hover:text-amber-500 pl-1">Haga click aquí crearla</Link>
         </p>
       </div>
   );

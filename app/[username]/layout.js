@@ -6,7 +6,7 @@ import { usePathname} from "next/navigation";
 import { useState } from "react";
 
 export default function layoutUser({children,params}) {
-  const {userName, isAdmin} = useAppContext();
+  const {userName,setUserName,setIsAdmin, isAdmin, userEmail,setUserEmail} = useAppContext();
   const pathname = usePathname();
   const [menuValue,setMenuValue] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -43,6 +43,12 @@ export default function layoutUser({children,params}) {
               </Link>}
             </div>
 
+            <div className="text-amber-200">
+              <Link href="/">
+                <button onClick={()=>{logOutHandleClick()}}>CERRAR SESIÓN </button>
+              </Link>
+            </div>
+
           </div>
         </div>
       </div>
@@ -59,6 +65,15 @@ export default function layoutUser({children,params}) {
       setTimeout(() => setIsVisible(true), 50); 
     }
   };
+
+  const logOutHandleClick = () =>{
+    setUserName("");
+    localStorage.setItem("user","");
+    setIsAdmin(false);
+    localStorage.setItem("admin",false);
+    setUserEmail("");
+    localStorage.setItem("email","");
+  }
 
 
   if (userName === params.username){
@@ -107,18 +122,29 @@ export default function layoutUser({children,params}) {
 
                 </button>
               </Link>
-            </div>{isAdmin && (
+
+            </div>
+
+            {isAdmin && (
+              <div className="flex justify-center border-b border-amber-200">
+                <Link href={`/${userName}/inventory`}>
+                  <button className={`${pathname === `/${userName}/inventory` 
+                      ? "text-amber-400 text-lg my-3" : "hover:text-zinc-100 my-3"}`}>
+
+                    MODIFICAR INVENTARIO
+
+                  </button>
+                </Link>
+              </div>)}
+
             <div className="flex justify-center border-b border-amber-200">
-              <Link href={`/${userName}/inventory`}>
-                <button className={`${pathname === `/${userName}/inventory` 
-                    ? "text-amber-400 text-lg my-3" : "hover:text-zinc-100 my-3"}`}>
-
-                  MODIFICAR INVENTARIO
-
-                </button>
+              <Link href="/">
+                <button onClick={()=>{logOutHandleClick()}} className="text-amber-200 text-lg my-3">CERRAR SESIÓN </button>
               </Link>
-            </div>)}
+            </div>
+
           </div>
+
           {children}
         </div>
       </div>
