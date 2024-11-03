@@ -3,13 +3,39 @@ import Image from "next/image";
 import Link from "next/link";
 import { useAppContext } from "../index";
 import { usePathname} from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function layoutUser({children,params}) {
-  const {userName,setUserName,setIsAdmin, isAdmin, userEmail,setUserEmail} = useAppContext();
+  const {userName,setUserName,setIsAdmin, isAdmin, userEmail, setUserEmail, userLanguage} = useAppContext();
   const pathname = usePathname();
   const [menuValue,setMenuValue] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Asegúrate de usar la ruta correcta al JSON
+        const response = await fetch(`/messages/${userLanguage}.json`);
+        
+
+        if (!response.ok) {
+          throw new Error('Error en la carga de datos');
+        }
+        const jsonData = await response.json();
+        setData(jsonData);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
+    fetchData();
+  }, [userLanguage]); // hace el fetch cada vez que se actualiza userLanguage;
+
+
+
 
   function showMenu(){
     if(userName === params.username){
@@ -26,26 +52,26 @@ export default function layoutUser({children,params}) {
 
             <div className={`${pathname === `/${userName}/preferences` ? "text-amber-400":""}`}>
               <Link href={`/${userName}/preferences`}>
-                <h1>PREFERENCIAS</h1>
+                <h1>{data ? data.preferences : ""}</h1>
               </Link>
             </div>
 
             <div className={`${pathname === `/${userName}/purcharse-history` ? "text-amber-400":""}`}>
               <Link href={`/${userName}/purcharse-history`}>
-                <h1>COMPRAS</h1>
+                <h1>{data ? data.purcharseHistory: ""}</h1>
               </Link>
             </div>
 
             <div className={`${pathname === `/${userName}/inventory` ? "text-amber-400":""}`}>
               {isAdmin &&
               <Link href={`/${userName}/inventory`}>
-                <h1>INVENTARIO</h1>
+                <h1>{data ? data.inventory: ""}</h1>
               </Link>}
             </div>
 
             <div className="text-amber-200">
               <Link href="/">
-                <button onClick={()=>{logOutHandleClick()}}>CERRAR SESIÓN </button>
+                <button onClick={()=>{logOutHandleClick()}}>{data ? data.logOut : ""}</button>
               </Link>
             </div>
 
@@ -108,7 +134,7 @@ export default function layoutUser({children,params}) {
                 <button className={`${pathname === `/${userName}/preferences` 
                     ? "text-amber-400 text-lg my-3" : "hover:text-zinc-100 my-3 "}`}>
 
-                PREFERENCIAS 
+                {data ? data.preferences : ""}
 
                 </button>
               </Link>
@@ -118,7 +144,7 @@ export default function layoutUser({children,params}) {
                 <button className={`${pathname === `/${userName}/purcharse-history` 
                     ? "text-amber-400 text-lg my-3" : "hover:text-zinc-100 my-3 "}`}>
 
-                COMPRAS
+                {data ? data.purcharseHistory: ""}
 
                 </button>
               </Link>
@@ -131,7 +157,7 @@ export default function layoutUser({children,params}) {
                   <button className={`${pathname === `/${userName}/inventory` 
                       ? "text-amber-400 text-lg my-3" : "hover:text-zinc-100 my-3"}`}>
 
-                    MODIFICAR INVENTARIO
+                    {data ? data.inventory: ""}
 
                   </button>
                 </Link>
@@ -139,7 +165,7 @@ export default function layoutUser({children,params}) {
 
             <div className="flex justify-center border-b border-amber-200">
               <Link href="/">
-                <button onClick={()=>{logOutHandleClick()}} className="text-amber-200 text-lg my-3">CERRAR SESIÓN </button>
+                <button onClick={()=>{logOutHandleClick()}} className="text-amber-200 text-lg my-3">{data ? data.logOut: ""}</button>
               </Link>
             </div>
 

@@ -13,7 +13,7 @@ export default function userPage({params}) {
   }
 
   return(
-    <div>Hola usuario {userName}</div>
+    <div className = "text-2xl text-center p-5">{userName}</div>
   );
   
 }

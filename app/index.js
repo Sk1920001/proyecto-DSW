@@ -8,6 +8,7 @@ export function AppWrapper({children}) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
+  const [userLanguage, setUserLanguage] = useState('es');
 
   useEffect(() => {
     const adminValue = localStorage.getItem("admin");
@@ -24,6 +25,11 @@ export function AppWrapper({children}) {
     if (emailValue !== null) {
       setUserEmail(emailValue);
     }
+
+    const langValue = localStorage.getItem("lang");
+    if (langValue !== null){
+      setUserLanguage(langValue);
+    }
   }, []);
 
   return(
@@ -33,7 +39,9 @@ export function AppWrapper({children}) {
       userName,
       setUserName,
       userEmail,
-      setUserEmail
+      setUserEmail,
+      userLanguage,
+      setUserLanguage
     }}>
       {children}
     </AppContext.Provider>

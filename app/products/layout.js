@@ -3,12 +3,40 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAppContext } from "../index";
 
 export default function ProductsLayout({ children }) {
   const pathname = usePathname(); 
   const [menuValue, setMenuValue] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const {userLanguage} = useAppContext();
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Asegúrate de usar la ruta correcta al JSON
+        const response = await fetch(`/messages/${userLanguage}.json`);
+        
+
+        if (!response.ok) {
+          throw new Error('Error en la carga de datos');
+        }
+        const jsonData = await response.json();
+        setData(jsonData);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
+    fetchData();
+  }, [userLanguage]); // hace el fetch cada vez que se actualiza userLanguage;
+
+
+
 
   function showMenu() {
     return (
@@ -21,25 +49,25 @@ export default function ProductsLayout({ children }) {
           <div className="grid grid-cols-1 gap-5 py-1 pr-2">
             <div className={`${pathname === "/products/stainless-steel-jewelry" ? "text-amber-400" : ""}`}>
               <Link href="/products/stainless-steel-jewelry">
-                <h1>ACERO INOXIDABLE</h1>
+                <h1>{data ? data.stainlessSteel : ""}</h1>
               </Link>
             </div>
 
             <div className={`${pathname === "/products/silver-plated-jewelry" ? "text-amber-400" : ""}`}>
               <Link href="/products/silver-plated-jewelry">
-                <h1>BAÑADAS EN PLATA</h1>
+                <h1>{data ? data.silverPlated: ""}</h1>
               </Link>
             </div>
 
             <div className={`${pathname === "/products/gold-plated-jewelry" ? "text-amber-400" : ""}`}>
               <Link href="/products/gold-plated-jewelry">
-                <h1>BAÑADAS EN ORO</h1>
+                <h1>{data ? data.goldPlated: ""}</h1>
               </Link>
             </div>
 
             <div className={`${pathname === "/products/silver-jewelry" ? "text-amber-400" : ""}`}>
               <Link href="/products/silver-jewelry">
-                <h1>PLATA SÓLIDA</h1>
+                <h1>{data ? data.silver: ""}</h1>
               </Link>
             </div>
           </div>
@@ -80,25 +108,25 @@ export default function ProductsLayout({ children }) {
         <div className="grid grid-cols-4 gap-5 py-1">
           <div className={`hover:text-zinc-100 ${pathname === "/products/stainless-steel-jewelry" ? "text-amber-400" : ""}`}>
             <Link href="/products/stainless-steel-jewelry">
-              <h1>ACERO INOXIDABLE</h1>
+              <h1>{data ? data.stainlessSteel: ""}</h1>
             </Link>
           </div>
 
           <div className={`hover:text-zinc-100 ${pathname === "/products/silver-plated-jewelry" ? "text-amber-400" : ""}`}>
             <Link href="/products/silver-plated-jewelry">
-              <h1>BAÑADAS EN PLATA</h1>
+              <h1>{data ? data.silverPlated: ""}</h1>
             </Link>
           </div>
 
           <div className={`hover:text-zinc-100 ${pathname === "/products/gold-plated-jewelry" ? "text-amber-400" : ""}`}>
             <Link href="/products/gold-plated-jewelry">
-              <h1>BAÑADAS EN ORO</h1>
+              <h1>{data ? data.goldPlated: ""}</h1>
             </Link>
           </div>
 
           <div className={`hover:text-zinc-100 ${pathname === "/products/silver-jewelry" ? "text-amber-400" : ""}`}>
             <Link href="/products/silver-jewelry">
-              <h1>PLATA SÓLIDA</h1>
+              <h1>{data ? data.silver: ""}</h1>
             </Link>
           </div>
         </div>

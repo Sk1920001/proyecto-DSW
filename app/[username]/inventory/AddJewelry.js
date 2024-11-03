@@ -1,6 +1,9 @@
 // app/AddJewelry.js
-import { useState } from 'react';
+"use client";
+import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useAppContext } from "../../index";
+
 
 const AddJewelry = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +14,33 @@ const AddJewelry = () => {
     price: '',
     image: null // Para almacenar el archivo de imagen
   });
+
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+  const { userLanguage } = useAppContext();
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Asegúrate de usar la ruta correcta al JSON
+        const response = await fetch(`/messages/${userLanguage}.json`);
+        
+
+        if (!response.ok) {
+          throw new Error('Error en la carga de datos');
+        }
+        const jsonData = await response.json();
+        setData(jsonData);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
+    fetchData();
+  }, [userLanguage]); // hace el fetch cada vez que se actualiza userLanguage;
+
+
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -68,10 +98,10 @@ const AddJewelry = () => {
     
   return (
     <form onSubmit={handleSubmit} className="max-w-lg mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Añadir Joya Nueva</h2>
+      <h2 className="text-2xl font-bold mb-4">{data ? data.addItem: ""}</h2>
 
       <div className="mb-4">
-        <label htmlFor="name" className="block mb-1">Nombre</label>
+        <label htmlFor="name" className="block mb-1">{data ? data.itemName : ""}</label>
         <input
           type="text"
           name="name"
@@ -84,7 +114,7 @@ const AddJewelry = () => {
       </div>
 
       <div className="mb-4">
-        <label htmlFor="description" className="block mb-1">Descripción</label>
+        <label htmlFor="description" className="block mb-1">{data ? data.description : ""}</label>
         <textarea
           name="description"
           id="description"
@@ -96,7 +126,7 @@ const AddJewelry = () => {
       </div>
 
       <div className="mb-4">
-        <label htmlFor="id_category" className="block mb-1">ID de Categoría</label>
+        <label htmlFor="id_category" className="block mb-1">{data ? data.categoryId: ""}</label>
         <input
           type="text"
           name="id_category"
@@ -109,7 +139,7 @@ const AddJewelry = () => {
       </div>
 
       <div className="mb-4">
-        <label htmlFor="image" className="block mb-1">Subir Imagen</label>
+        <label htmlFor="image" className="block mb-1">{data ? data.uploadImage : ""}</label>
         <input
           type="file"
           name="image"
@@ -122,7 +152,7 @@ const AddJewelry = () => {
       </div>
 
       <div className="mb-4">
-        <label htmlFor="quantity" className="block mb-1">Cantidad</label>
+        <label htmlFor="quantity" className="block mb-1">{data ? data.quantity : ""}</label>
         <input
           type="text" // Cambiado de number a text
           name="quantity"
@@ -135,7 +165,7 @@ const AddJewelry = () => {
       </div>
 
       <div className="mb-4">
-        <label htmlFor="price" className="block mb-1">Precio</label>
+        <label htmlFor="price" className="block mb-1">{data ? data.price : ""}</label>
         <input
           type="text" // Cambiado de number a text
           name="price"
@@ -147,7 +177,7 @@ const AddJewelry = () => {
         />
       </div>
 
-      <button type="submit" className="bg-zinc-900 text-amber-200 hover:text-zinc-100 p-2 rounded">Añadir Joya</button>
+      <button type="submit" className="bg-zinc-900 text-amber-200 hover:text-zinc-100 p-2 rounded">{data ? data.save : ""}</button>
     </form>
   );
 };

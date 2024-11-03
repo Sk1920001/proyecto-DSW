@@ -1,7 +1,8 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAppContext } from "./index";
 
 
 function LandingPage() {
@@ -9,6 +10,32 @@ function LandingPage() {
 
   const [menuValue,setMenuValue] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const {userLanguage} = useAppContext();
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Asegúrate de usar la ruta correcta al JSON
+        const response = await fetch(`/messages/${userLanguage}.json`);
+        
+
+        if (!response.ok) {
+          throw new Error('Error en la carga de datos');
+        }
+        const jsonData = await response.json();
+        setData(jsonData);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
+    fetchData();
+  }, [userLanguage]); // hace el fetch cada vez que se actualiza userLanguage;
+
+
 
 
   function showMenu(){
@@ -25,25 +52,25 @@ function LandingPage() {
 
             <div className="hover:text-zinc-100">
               <Link href="/products/stainless-steel-jewelry">
-                <h1>ACERO INOXIDABLE</h1>
+                <h1>{data ? data.stainlessSteel : ""}</h1>
               </Link>
             </div>
 
             <div className="hover:text-zinc-100">
               <Link href="/products/silver-plated-jewelry">
-                <h1>BAÑADAS EN PLATA</h1>
+                <h1>{data ? data.silverPlated : ""}</h1>
               </Link>
             </div>
 
             <div className="hover:text-zinc-100">
               <Link href="/products/gold-plated-jewelry">
-                <h1>BAÑADAS EN ORO</h1>
+                <h1>{data ? data.goldPlated : ""}</h1>
               </Link>
             </div>
 
             <div className="hover:text-zinc-100">
               <Link href="/products/silver-jewelry">
-                <h1>PLATA SÓLIDA</h1>
+                <h1>{data ? data.silver : ""}</h1>
               </Link>
             </div>
     
@@ -92,25 +119,25 @@ function LandingPage() {
 
           <div className="hover:text-zinc-100">
             <Link href="/products/stainless-steel-jewelry">
-              <h1>ACERO INOXIDABLE</h1>
+              <h1>{data ? data.stainlessSteel: ""}</h1>
             </Link>
           </div>
 
           <div className="hover:text-zinc-100">
             <Link href="/products/silver-plated-jewelry">
-              <h1>BAÑADAS EN PLATA</h1>
+              <h1>{data ? data.silverPlated: ""}</h1>
             </Link>
           </div>
 
           <div className="hover:text-zinc-100">
             <Link href="/products/gold-plated-jewelry">
-              <h1>BAÑADAS EN ORO</h1>
+              <h1>{data ? data.goldPlated: ""}</h1>
             </Link>
           </div>
 
           <div className="hover:text-zinc-100">
             <Link href="/products/silver-jewelry">
-              <h1>PLATA SÓLIDA</h1>
+              <h1>{data ? data.silver: ""}</h1>
             </Link>
           </div>
     
