@@ -54,9 +54,9 @@ export default function UserBar(){
         {(userName === "") && ( 
         <div className="flex flex-row h-1/5 py-1 justify-between text-xs md:text-sm lg:text-base bg-zinc-900 text-amber-200">
             <div className="flex flex-row px-2">
-              <button onClick={()=>handleClickEN()} className="hover:text-zinc-100">EN</button>
+              <button onClick={()=>handleClickEN()} className={`${userLanguage === "en" ? "text-amber-400" : "hover:text-zinc-200"}`}>EN</button>
               <h1 className="px-1">|</h1>
-              <button onClick={()=>handleClickES()} className="hover:text-zinc-100">ES</button>
+              <button onClick={()=>handleClickES()} className={`${userLanguage === "es" ? "text-amber-400" : "hover:text-zinc-200"}`}>ES</button>
             </div>
 
             <div className="flex flex-row px-2">
@@ -81,9 +81,9 @@ export default function UserBar(){
 
         <div className="flex flex-row h-1/5 py-1 items-center justify-between text-xs md:text-sm lg:text-base bg-zinc-900 text-amber-200">
           <div className="flex flex-row px-2">
-            <button onClick={()=>handleClickEN()} className="hover:text-zinc-100">EN</button>
+            <button onClick={()=>handleClickEN()} className={`${userLanguage === "en" ? "text-amber-400" : "hover:text-zinc-200"}`}>EN</button>
             <h1 className="px-1">|</h1>
-            <button onClick={()=>handleClickES()} className="hover:text-zinc-100">ES</button>
+            <button onClick={()=>handleClickES()} className={`${userLanguage === "es" ? "text-amber-400" : "hover:text-zinc-200"}`}>ES</button>
           </div>
           <div className="flex flex-row items-center">
             <div className="flex items-center justify-center w-3 h-3 rounded-full bg-amber-200">

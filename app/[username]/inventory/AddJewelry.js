@@ -8,6 +8,7 @@ import { useAppContext } from "../../index";
 const AddJewelry = () => {
   const [formData, setFormData] = useState({
     name: '',
+    name_en: '',
     description: '',
     id_category: '',
     quantity: '',
@@ -63,6 +64,7 @@ const AddJewelry = () => {
 
     try {
         const response_insert_item = await axios.post("/api/inventory",{name:data.get("name"),
+                                                          name_en:data.get("name_en"),
                                                           description:data.get("description"),
                                                           id_category:data.get("id_category"),
                                                           image_path:`/${data.get("image").name}`,
@@ -87,6 +89,7 @@ const AddJewelry = () => {
 
     setFormData({
       name: '',
+      name_en: '',
       description: '',
       id_category: '',
       quantity: '',
@@ -107,6 +110,19 @@ const AddJewelry = () => {
           name="name"
           id="name"
           value={formData.name}
+          onChange={handleChange}
+          required
+          className="border border-gray-300 p-2 w-full"
+        />
+      </div>
+
+      <div className="mb-4">
+        <label htmlFor="name" className="block mb-1">{data ? data.itemName_en : ""}</label>
+        <input
+          type="text"
+          name="name_en"
+          id="name_en"
+          value={formData.name_en}
           onChange={handleChange}
           required
           className="border border-gray-300 p-2 w-full"

@@ -113,7 +113,7 @@ function LandingPage() {
         {menuValue && showMenu()}
       </div>
 
-      <div className="hidden md:flex justify-center bg-zinc-950 text-amber-200" >
+      <div className="hidden text-sm lg:text-base md:flex justify-center bg-zinc-950 text-amber-200" >
 
         <div className="grid grid-cols-2  gap-5  md:grid-cols-4 py-1">
 
@@ -144,6 +144,9 @@ function LandingPage() {
         </div>
 
         
+      </div>
+      <div className= "flex mx-auto justify-center items-center mt-10 mb-auto py-5 bg-zinc-950">
+        <Image src="/modelo.png" alt= "modelo" height={512} width={1170}/>
       </div>
     </div>
 

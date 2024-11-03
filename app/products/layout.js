@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, cloneElement } from "react";
 import { useAppContext } from "../index";
 
 export default function ProductsLayout({ children }) {
@@ -104,7 +104,7 @@ export default function ProductsLayout({ children }) {
 
       <div>{menuValue && showMenu()}</div>
 
-      <div className="hidden md:flex justify-center bg-zinc-950 text-amber-200">
+      <div className="hidden text-sm lg:text-base  md:flex justify-center bg-zinc-950 text-amber-200">
         <div className="grid grid-cols-4 gap-5 py-1">
           <div className={`hover:text-zinc-100 ${pathname === "/products/stainless-steel-jewelry" ? "text-amber-400" : ""}`}>
             <Link href="/products/stainless-steel-jewelry">
