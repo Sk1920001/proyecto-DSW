@@ -5,7 +5,7 @@ import { useAppContext } from "../index";
 import axios from "axios";
 import { useEffect } from "react";
 
-export default function ProductsGrid({ category }) {
+export default function RecomendedProducts({ category }) {
   const {userLanguage,products,setProducts} = useAppContext();
 
   //This useEffect changes the products data
@@ -47,8 +47,8 @@ export default function ProductsGrid({ category }) {
 
   return (
     <div className="mx-auto">
-      <div className="grid grid-cols-1 text-sm md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2 p-3">
-        {data.map((product) => (
+      <div className="grid grid-cols-1 text-sm sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4  w-3/4 mx-auto gap-2 p-3">
+        {data.slice(0,4).map((product) => (
           <Link href={`/product-id/${product.id_product}/product-info`}>
             <div className="border border-zinc-200" key={product.id_product}>
               <div className="w-48 h-48 relative mx-auto">

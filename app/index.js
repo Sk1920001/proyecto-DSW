@@ -9,6 +9,7 @@ export function AppWrapper({children}) {
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userLanguage, setUserLanguage] = useState('es');
+  const [products,setProducts] = useState([]);
 
   useEffect(() => {
     const adminValue = localStorage.getItem("admin");
@@ -41,7 +42,9 @@ export function AppWrapper({children}) {
       userEmail,
       setUserEmail,
       userLanguage,
-      setUserLanguage
+      setUserLanguage,
+      products,
+      setProducts
     }}>
       {children}
     </AppContext.Provider>

@@ -3,6 +3,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useAppContext } from "./index";
+import axios from "axios";
+import Carousel from "./components/Carousel";
+import RecomendedProducts from "./components/RecomendedProducts";
+import Footer from "./components/Footer";
 
 
 function LandingPage() {
@@ -10,11 +14,11 @@ function LandingPage() {
 
   const [menuValue,setMenuValue] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const {userLanguage} = useAppContext();
+  const {userLanguage,products,setProducts} = useAppContext();
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
-
+ 
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -34,6 +38,32 @@ function LandingPage() {
 
     fetchData();
   }, [userLanguage]); // hace el fetch cada vez que se actualiza userLanguage;
+
+  //This useEffect changes the products data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+          const response = await axios.get("/api/products");
+          
+
+          if (!response) {
+              const errorData = await response.data;
+              console.error('Error while fetching data :', errorData.message);
+              return;
+          }
+
+          console.log('Data fetched succesfully');
+          setProducts(response.data.productsData);
+          
+
+      } catch (error) {
+          console.error('Error while fetching data:', error);
+      
+      };
+    };
+
+    fetchData();
+  }, []); 
 
 
 
@@ -113,7 +143,7 @@ function LandingPage() {
         {menuValue && showMenu()}
       </div>
 
-      <div className="hidden text-sm lg:text-base md:flex justify-center bg-zinc-950 text-amber-200" >
+      <div className="hidden text-sm lg:text-base md:flex justify-center bg-zinc-950  shadow-lg  text-amber-200" >
 
         <div className="grid grid-cols-2  gap-5  md:grid-cols-4 py-1">
 
@@ -145,9 +175,11 @@ function LandingPage() {
 
         
       </div>
-      <div className= "flex mx-auto justify-center items-center mt-10 mb-auto py-5 bg-zinc-950">
-        <Image src="/modelo.png" alt= "modelo" height={512} width={1170}/>
+      <div className= "flex mx-auto justify-center items-center  mb-auto py-5 bg-gray-100">
+        <Carousel/>
       </div>
+      <h1 className="bg-amber-950 text-center text-2xl  py-4 text-zinc-100 font-thin">PRODUCTOS POPULARES</h1>
+      <RecomendedProducts category={"Acero inoxidable"}/>
     </div>
 
   );

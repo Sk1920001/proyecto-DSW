@@ -5,11 +5,10 @@ import  ProductsGrid from "../../components/ProductsGrid"; // si es export defau
 
 
 export default async function Page() {
-  const products = await fetchProducts({category : 'Acero inoxidable'}); //the input is an object
   return(
 
     <div>
-    <ProductsGrid products={products}/> 
+    <ProductsGrid category={"Acero inoxidable"}/> 
     </div>
 
 
