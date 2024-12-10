@@ -9,6 +9,7 @@ import RecomendedProducts from "./components/RecomendedProducts";
 import Footer from "./components/Footer";
 
 
+
 function LandingPage() {
 
 
@@ -17,6 +18,7 @@ function LandingPage() {
   const {userLanguage,products,setProducts} = useAppContext();
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
+  const categories = ["Acero inoxidable", "Bañada en plata", "Bañada en oro", "Plata"];
 
  
   useEffect(() => {
@@ -31,6 +33,7 @@ function LandingPage() {
         }
         const jsonData = await response.json();
         setData(jsonData);
+        console.log(data);
       } catch (error) {
         setError(error.message);
       }
@@ -178,8 +181,8 @@ function LandingPage() {
       <div className= "flex mx-auto justify-center items-center  mb-auto py-5 bg-gray-100">
         <Carousel/>
       </div>
-      <h1 className="bg-amber-950 text-center text-2xl  py-4 text-zinc-100 font-thin">PRODUCTOS POPULARES</h1>
-      <RecomendedProducts category={"Acero inoxidable"}/>
+      <h1 className="bg-amber-900 text-center text-2xl  py-4 text-zinc-100 font-thin">{data ? data.pop_prod : ""}</h1>
+      <RecomendedProducts category={`${categories[Math.floor(Math.random() * categories.length)]}`}/>
     </div>
 
   );

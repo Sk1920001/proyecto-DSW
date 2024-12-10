@@ -125,7 +125,7 @@ export default function layoutUser({children,params}) {
           <div>{menuValue && showMenu()}</div>
 
        
-          <div className="hidden md:flex flex-col bg-zinc-900 h-screen w-1/3 lg:w-1/4 xl:w-1/6 text-amber-200 text-lg">
+          <div className="hidden md:flex flex-col bg-zinc-950 min-h-screen w-1/3 lg:w-1/4 xl:w-1/6 text-amber-200 text-lg">
             <Link href="/">
               <Image className="mt-5 border-b border-amber-200"src="/altagracia.png" alt="altagracia-logo" width={333} height={69}/>
             </Link>
@@ -170,8 +170,10 @@ export default function layoutUser({children,params}) {
             </div>
 
           </div>
+          <div className="mx-auto">
 
-          {children}
+            {children}
+          </div>
         </div>
       </div>
 

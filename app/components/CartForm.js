@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-export default function CartForm({productName}) {
+export default function CartForm({productName, lang}) {
   const [quantity, setQuantity] = useState(1);
 
   const handleQuantityChange = (e) => {
@@ -11,7 +11,12 @@ export default function CartForm({productName}) {
   };
 
   const addToCart = () => {
+    if(lang === 'es'){
     alert(`Has agregado ${quantity} ${productName} al carrito.`);
+      return
+    }else{
+    alert(`You added ${quantity} ${productName} to the cart.`);
+    }
   };
 
   return (
@@ -26,10 +31,10 @@ export default function CartForm({productName}) {
         />
       </div>
       <button
-        className="py-2 mx-2 bg-zinc-900 rounded text-zinc-100 text-sm font-semibold w-1/2 hover:text-amber-400 focus:outline-none"
+        className="p-2 mx-2 bg-zinc-900 rounded text-zinc-100 text-sm font-semibold  hover:text-amber-200 focus:outline-none"
         onClick={addToCart}
       >
-       AGREGAR AL CARRITO 
+      {lang === 'es' ? "Agregar al carrito" : "Add to cart"}
       </button>
     </div>
   );

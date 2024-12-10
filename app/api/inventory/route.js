@@ -1,11 +1,11 @@
 import { insertItem } from "../../../lib/db";
 
 export async function POST(req) {
-    const {name, name_en, description, id_category, image_path, quantity, price} = await req.json(); // Asegúrate de extraer el cuerpo de la solicitud
+    const {name, name_en, description, description_en, id_category, image_path, quantity, price} = await req.json(); // Asegúrate de extraer el cuerpo de la solicitud
     
     try {
         // Llama a la función que se conecta con la base de datos
-        await insertItem({name, name_en, description, id_category, image_path, quantity, price});
+        await insertItem({name, name_en, description,description_en, id_category, image_path, quantity, price});
         return new Response(JSON.stringify({ message: "Usuario registrado exitosamente" }), {
             status: 200,
             headers: { 'Content-Type': 'application/json' },

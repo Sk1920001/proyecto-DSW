@@ -20,7 +20,8 @@
     "next-intl": "^3.24.0",
     "next-translate": "^2.6.2",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "yup": "^1.5.0"
   },
   "devDependencies": {
     "postcss": "^8",
