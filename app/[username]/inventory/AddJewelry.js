@@ -142,7 +142,7 @@ const AddJewelry = () => {
 
     
   return (
-    <form onSubmit={handleSubmit} className="w-[600px] mx-auto p-4">
+    <form onSubmit={handleSubmit} className="w-full sm:w-[600px] mx-auto p-4">
       <h2 className="text-2xl font-bold mb-4 text-center">{data ? data.addItem: ""}</h2>
 
       <div className="mb-4">
@@ -172,7 +172,7 @@ const AddJewelry = () => {
       {formErrors.name_en && <h1 className="text-red-500 text-sm pb-2">{formErrors.name_en}</h1>}
 
       <div className="mb-4">
-        <label htmlFor="description" className="block mb-1">{data ? data.description : ""}</label>
+        <label htmlFor="description" className="block mb-1">{data ? data.description_es : ""}</label>
         <textarea
           name="description"
           id="description"

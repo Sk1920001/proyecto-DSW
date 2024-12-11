@@ -60,7 +60,7 @@ export default function Page({ params }) {
 
   return (
     <div>
-      <h1 className="text-xl text-center text-amber-700 px-2 bg-gray-50 py-10 uppercase"> <strong>{userLanguage === 'es' ? product.name : product.name_en
+      <h1 className="text-xl text-center text-amber-500 px-2 bg-gray-50 py-10 uppercase"> <strong>{userLanguage === 'es' ? product.name : product.name_en
       } - {product.id_category === 1 ? `${data ? data.stainlessSteel : ""}`: ""}
     {product.id_category === 2 ? `${data ? data.silverPlated : ""}`: ""}
     {product.id_category === 3 ? `${data ? data.goldPlated : ""}`: ""}
@@ -68,7 +68,7 @@ export default function Page({ params }) {
       <div className="flex flex-col xl:flex-row justify-center py-10">
         <Image className="p-2 mx-auto"  src={product.image_path} width={500} height={500} alt={product.name} />
         <div className="flex flex-col md:w-1/2 xl:w-1/3 md:mx-auto xl:ml-10 p-2">
-          <h1 className="text-md text-center border-b text-amber-700">{userLanguage === 'es' ? product.name : product.name_en
+          <h1 className="text-md text-center border-b text-amber-500">{userLanguage === 'es' ? product.name : product.name_en
           }</h1>
           <h1 className="text-lg pl-1 border-b py-5">${product.price} CLP</h1>
           <h1 className="text-md pl-1 border-b py-5">

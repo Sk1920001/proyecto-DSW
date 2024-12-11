@@ -69,6 +69,13 @@ export default function layoutUser({children,params}) {
               </Link>}
             </div>
 
+            <div className={`${pathname === `/${userName}/statistics` ? "text-amber-400":""}`}>
+              {isAdmin &&
+              <Link href={`/${userName}/statistics`}>
+                <h1>{data ? data.statistics: ""}</h1>
+              </Link>}
+            </div>
+
             <div className="text-amber-200">
               <Link href="/">
                 <button onClick={()=>{logOutHandleClick()}}>{data ? data.logOut : ""}</button>
@@ -158,6 +165,18 @@ export default function layoutUser({children,params}) {
                       ? "text-amber-400 text-lg my-3" : "hover:text-zinc-100 my-3"}`}>
 
                     {data ? data.inventory: ""}
+
+                  </button>
+                </Link>
+              </div>)}
+
+            {isAdmin && (
+              <div className="flex justify-center border-b border-amber-200">
+                <Link href={`/${userName}/statistics`}>
+                  <button className={`${pathname === `/${userName}/statistics` 
+                      ? "text-amber-400 text-lg my-3" : "hover:text-zinc-100 my-3"}`}>
+
+                    {data ? data.statistics: ""}
 
                   </button>
                 </Link>

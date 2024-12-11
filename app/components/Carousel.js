@@ -10,7 +10,7 @@ export default function Carousel(){
     const timer = setTimeout(() => {
       handleNext();
       console.log("Tiempo");
-    },8000)
+    },2000)
     return () => clearTimeout(timer);
   },[currIndex]);
 

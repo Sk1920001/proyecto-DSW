@@ -18,7 +18,8 @@ function LandingPage() {
   const {userLanguage,products,setProducts} = useAppContext();
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-  const categories = ["Acero inoxidable", "Bañada en plata", "Bañada en oro", "Plata"];
+  const categories = ["Acero inoxidable", "Bañada en plata", "Bañada en oro"];
+  const [randCat, setRandCat] = useState(null);
 
  
   useEffect(() => {
@@ -64,7 +65,8 @@ function LandingPage() {
       
       };
     };
-
+    const new_recomendation = categories[Math.floor(Math.random() * categories.length)]
+    setRandCat(new_recomendation);
     fetchData();
   }, []); 
 
@@ -181,8 +183,8 @@ function LandingPage() {
       <div className= "flex mx-auto justify-center items-center  mb-auto py-5 bg-gray-100">
         <Carousel/>
       </div>
-      <h1 className="bg-amber-900 text-center text-2xl  py-4 text-zinc-100 font-thin">{data ? data.pop_prod : ""}</h1>
-      <RecomendedProducts category={`${categories[Math.floor(Math.random() * categories.length)]}`}/>
+      <h1 className="bg-zinc-950 text-center text-2xl  py-4 text-amber-200 font-thin">{data ? data.pop_prod : ""}</h1>
+      <RecomendedProducts category={randCat}/>
     </div>
 
   );
