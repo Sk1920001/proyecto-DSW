@@ -6,12 +6,26 @@ import { usePathname} from "next/navigation";
 import { useState, useEffect } from "react";
 
 export default function layoutUser({children,params}) {
-  const {userName,setUserName,setIsAdmin, isAdmin, userEmail, setUserEmail, userLanguage} = useAppContext();
+  const {userName,setUserName,setIsAdmin, isAdmin, userEmail, setUserEmail, userLanguage, setUserLanguage} = useAppContext();
   const pathname = usePathname();
   const [menuValue,setMenuValue] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
+
+  const handleClickEN = () =>{
+    if(userLanguage !== "en"){
+      setUserLanguage("en");
+      localStorage.setItem("lang","en");
+    }
+  }
+  const handleClickES = () =>{
+    if(userLanguage !== "es"){
+      setUserLanguage("es");
+      localStorage.setItem("lang","es");
+    }
+  }
+
 
 
   useEffect(() => {
@@ -114,6 +128,25 @@ export default function layoutUser({children,params}) {
     return(
       <div>
 
+        <div className= "block md:hidden">
+
+            <div className="flex flex-row h-1/5 py-1 items-center justify-between text-xs md:text-sm lg:text-base bg-zinc-900 text-amber-200">
+              <div className="flex flex-row px-2">
+                <button onClick={()=>handleClickEN()} className={`${userLanguage === "en" ? "text-amber-400" : "hover:text-zinc-200"}`}>EN</button>
+                <h1 className="px-1">|</h1>
+                <button onClick={()=>handleClickES()} className={`${userLanguage === "es" ? "text-amber-400" : "hover:text-zinc-200"}`}>ES</button>
+              </div>
+              <div className="flex flex-row items-center">
+                <div className="flex items-center justify-center w-3 h-3 rounded-full bg-amber-200">
+                </div>
+
+                <Link href={`/${userName}/userpage`}>
+                  <button className="hover:text-zinc-100 px-2">{userName}</button>
+                </Link>
+              </div>
+              </div>
+          </div>
+
         <div className="flex flex-col md:flex-row">
 
           <div className="block md:hidden bg-zinc-900">
@@ -186,6 +219,24 @@ export default function layoutUser({children,params}) {
               <Link href="/">
                 <button onClick={()=>{logOutHandleClick()}} className="text-amber-200 text-lg my-3">{data ? data.logOut: ""}</button>
               </Link>
+            </div>
+            <div className= "mt-auto">
+
+              <div className="flex flex-row h-1/5 py-1 items-center justify-between text-xs md:text-sm lg:text-base bg-zinc-950 text-amber-200">
+                <div className="flex flex-row px-2">
+                  <button onClick={()=>handleClickEN()} className={`${userLanguage === "en" ? "text-amber-400" : "hover:text-zinc-200"}`}>EN</button>
+                  <h1 className="px-1">|</h1>
+                  <button onClick={()=>handleClickES()} className={`${userLanguage === "es" ? "text-amber-400" : "hover:text-zinc-200"}`}>ES</button>
+                </div>
+                <div className="flex flex-row items-center">
+                  <div className="flex items-center justify-center w-3 h-3 rounded-full bg-amber-200">
+                  </div>
+
+                  <Link href={`/${userName}/userpage`}>
+                    <button className="hover:text-zinc-100 px-2">{userName}</button>
+                  </Link>
+                </div>
+                </div>
             </div>
 
           </div>

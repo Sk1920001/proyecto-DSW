@@ -18,7 +18,7 @@ function LandingPage() {
   const {userLanguage,products,setProducts} = useAppContext();
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-  const categories = ["Acero inoxidable", "Bañada en plata", "Bañada en oro"];
+  const categories = ["Acero inoxidable", "Bañada en plata"];
   const [randCat, setRandCat] = useState(null);
 
  

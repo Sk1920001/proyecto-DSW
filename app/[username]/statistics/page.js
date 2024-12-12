@@ -127,7 +127,9 @@ export default function page() {
           labels: labels,
           datasets: [
             {
-              label: data.get("values"), 
+              label: `${data.get("values") === 'price' ?
+                      `${userLanguage === 'es' ? "Precio en pesos chilenos (CLP)" : "Price in Chilean Pesos (CLP)"}` :
+                      `${userLanguage === 'es' ? "Cantidad" : "Quantity"}`}`, 
               data: labels_values, 
               backgroundColor: ["rgba(255, 211, 77, 1)"], // rgba(r,g,b,transparencia)
               borderColor:["rgba(0, 0, 0, 1)"],
